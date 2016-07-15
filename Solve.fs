@@ -1,6 +1,7 @@
 ﻿module Solve
 
 open Structure
+open Cell
 
 module Action =
     type Action = Elimination of Coordinate.Coordinate * Symbol
@@ -8,10 +9,9 @@ module Action =
     let apply a g =
         match a with
         | Elimination (co, s) ->
-            match Grid.get co g |> Cell.eliminate s with
+            match Grid.get co g |> eliminate s with
             | Some v -> Grid.set co v g
             | _ -> g
-
 
 module Group =
     let getActions (Group.Group g) =
@@ -26,15 +26,24 @@ module Group =
 
         let actionForCells =
             function
-            | [_, Cell.Certain elim; co, Cell.Possible xs]
-            | [co, Cell.Possible xs; _, Cell.Certain elim]
-                when Set.contains elim xs -> Action.Elimination (co, elim) |> Some
-            | _ -> None
+            | [_, Certain elim; co, Possible xs]
+            | [co, Possible xs; _, Certain elim]
+                when Set.contains elim xs
+                -> Action.Elimination (co, elim) |> Seq.singleton
+            | [co1, Possible xs1; co2, Possible xs2]
+                when Set.count xs1 = 2 && xs1 = xs2
+                -> seq {
+                       for x in xs1 do
+                       for co, cell in g |> Map.toSeq do
+                       if co <> co1 && co <> co2 && Cell.hasPossible x cell then
+                           yield Action.Elimination (co, x)
+                   }
+            | _ -> Seq.empty
         
         g
         |> Map.toList
         |> comb 2
-        |> Seq.choose actionForCells
+        |> Seq.collect actionForCells
             
 
 module Grid =

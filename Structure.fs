@@ -26,6 +26,10 @@ module Cell =
         | 1 -> xs |> Set.toSeq |> Seq.head |> Certain |> Some
         | _ -> Possible xs |> Some
 
+    let hasPossible x = function
+        | Possible xs -> Set.contains x xs
+        | Certain y -> x = y
+
     let eliminate x = function
         | Possible xs -> Set.remove x xs |> create
         | i -> i |> Some
