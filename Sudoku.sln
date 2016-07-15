@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sudoku", "Sudoku.fsproj", "{0A25E857-7D9E-4FCC-BC43-605DE8E870D9}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Console", "..\Console\Console.fsproj", "{C0B583F6-7BE0-4F10-989F-0162B37A48EA}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Console", "Console\Console.fsproj", "{C0B583F6-7BE0-4F10-989F-0162B37A48EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
