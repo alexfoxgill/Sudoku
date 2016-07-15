@@ -54,7 +54,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sudoku\Sudoku.fsproj">
+    <ProjectReference Include="..\Sudoku.fsproj">
       <Name>Sudoku</Name>
       <Project>{0a25e857-7d9e-4fcc-bc43-605de8e870d9}</Project>
       <Private>True</Private>
